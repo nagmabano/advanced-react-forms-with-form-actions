@@ -1,7 +1,9 @@
-import { useActionState } from "react";
+import { useActionState, use } from "react";
+import { OpinionsContext } from "../store/opinions-context";
 
 export function NewOpinion() {
-  function opinionAction(preOpinionState, opinionFormData) {
+  const { addOpinion } = use(OpinionsContext);
+  async function opinionAction(preOpinionState, opinionFormData) {
     const userName = opinionFormData.get("userName");
     const title = opinionFormData.get("title");
     const body = opinionFormData.get("body");
@@ -30,7 +32,7 @@ export function NewOpinion() {
         },
       };
     }
-
+    await addOpinion({userName, title, body});
     return { errors: null };
   }
 
